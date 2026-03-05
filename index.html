@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bebuhan Proseka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Nunito', sans-serif; background: #fff; overflow-x: hidden; color: #111; }
+
+/* ===== NAVBAR ===== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 40px;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Oxanium', sans-serif; font-size: 13px; font-weight: 700;
+  color: #111; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2;
+}
+.logo-icon {
+  width: 36px; height: 36px; border-radius: 6px; background: #111;
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+}
+.nav-logo .sub { color: #888; }
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a {
+  font-family: 'Oxanium', sans-serif; font-size: 12px; font-weight: 600;
+  text-decoration: none; color: rgba(0,0,0,0.4);
+  letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.2s;
+}
+.nav-links a:hover { color: #111; }
+.btn-join {
+  font-family: 'Oxanium', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; padding: 9px 22px;
+  background: #111; color: #fff; border: none; cursor: pointer; text-decoration: none;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: opacity 0.2s;
+}
+.btn-join:hover { opacity: 0.7; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: #111; transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-menu {
+  display: none; position: fixed; top: 69px; left: 0; right: 0;
+  background: rgba(255,255,255,0.98); border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding: 20px 0; z-index: 99; flex-direction: column; align-items: center;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: 'Oxanium', sans-serif; font-size: 14px; font-weight: 600;
+  color: rgba(0,0,0,0.55); text-decoration: none; letter-spacing: 0.15em;
+  text-transform: uppercase; padding: 14px 0; width: 100%; text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,0.05); transition: color 0.2s;
+}
+.mobile-menu a:hover { color: #111; }
+.mobile-menu .btn-join { margin-top: 16px; clip-path: none; border-radius: 4px; }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 100px 40px 60px;
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #ffffff 0%, #f4f4f4 30%, #ececec 60%, #f9f9f9 100%);
+}
+
+/* Dot grid pattern */
+.stars {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* Big circle ring accent */
+.glow-ring {
+  position: absolute; width: 520px; height: 520px;
+  border: 1px solid rgba(0,0,0,0.06); border-radius: 50%;
+  left: 4%; top: 50%; transform: translateY(-50%);
+}
+.glow-ring::after {
+  content: ''; position: absolute; inset: 44px;
+  border: 1px solid rgba(0,0,0,0.04); border-radius: 50%;
+}
+
+/* Small geo shapes */
+.geo { position: absolute; z-index: 1; }
+.geo-triangle {
+  width: 0; height: 0;
+  border-left: 10px solid transparent; border-right: 10px solid transparent;
+  border-bottom: 17px solid rgba(0,0,0,0.1);
+  top: 18%; left: 42%;
+}
+.geo-triangle2 {
+  width: 0; height: 0;
+  border-left: 6px solid transparent; border-right: 6px solid transparent;
+  border-bottom: 11px solid rgba(0,0,0,0.15);
+  top: 22%; left: 60%;
+}
+.geo-chevron {
+  width: 13px; height: 13px;
+  border-top: 2px solid rgba(0,0,0,0.15); border-right: 2px solid rgba(0,0,0,0.15);
+  transform: rotate(45deg); top: 40%; left: 38%;
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 40px; align-items: center;
+  max-width: 1200px; margin: 0 auto; width: 100%;
+}
+.hero-left { display: flex; flex-direction: column; gap: 20px; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid rgba(0,0,0,0.15); padding: 6px 16px; width: fit-content;
+  font-family: 'Oxanium', sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase; color: #666;
+  animation: fadeUp 0.6s ease both;
+}
+.hero-badge::before { content: '✦'; font-size: 9px; color: #aaa; }
+
+.hero-title {
+  font-family: 'Oxanium', sans-serif; font-weight: 800; line-height: 1;
+  animation: fadeUp 0.6s ease 0.1s both;
+}
+.hero-title .line1 { font-size: clamp(3rem, 8vw, 5.5rem); color: #111; display: block; }
+.hero-title .line2 {
+  font-size: clamp(3rem, 8vw, 5.5rem); display: block;
+  color: transparent; -webkit-text-stroke: 2.5px #111;
+}
+
+.hero-desc {
+  border-left: 3px solid #111; padding-left: 14px;
+  font-size: 15px; color: rgba(0,0,0,0.5); line-height: 1.7; max-width: 420px;
+  animation: fadeUp 0.6s ease 0.2s both;
+}
+.hero-desc span { color: #111; font-weight: 700; }
+
+.hero-buttons {
+  display: flex; flex-wrap: wrap; gap: 12px;
+  animation: fadeUp 0.6s ease 0.3s both;
+}
+.btn-outline {
+  font-family: 'Oxanium', sans-serif; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 24px;
+  border: 1.5px solid rgba(0,0,0,0.22); background: transparent; color: #111;
+  cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-outline:hover { background: #111; color: #fff; }
+.btn-primary {
+  font-family: 'Oxanium', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 24px;
+  background: #111; color: #fff; border: none; cursor: pointer;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: opacity 0.2s;
+}
+.btn-primary:hover { opacity: 0.7; }
+
+/* Image frame */
+.hero-right {
+  display: flex; justify-content: center; align-items: center;
+  position: relative; animation: fadeUp 0.7s ease 0.2s both;
+}
+.char-frame { position: relative; width: 150%; max-width: 340px; }
+.char-border { aspect-ratio: 3/4; background: transparent; }
+.char-svg {
+  width: 200%; height: 200%;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== INTRO SECTION ===== */
+.intro {
+  background: #fff; padding: 80px 40px;
+  position: relative; overflow: hidden;
+  border-top: 3px solid #111;
+}
+.intro-inner { max-width: 1100px; margin: 0 auto; }
+
+.intro-tag {
+  display: inline-block; background: #111; color: #fff;
+  font-family: 'Oxanium', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 5px 14px; margin-bottom: 20px;
+}
+.intro-heading {
+  font-family: 'Oxanium', sans-serif; font-weight: 800;
+  font-size: clamp(2rem, 5vw, 3.2rem); color: #111;
+  line-height: 1.1; margin-bottom: 20px;
+}
+.intro-heading .hl { color: transparent; -webkit-text-stroke: 2px #111; }
+
+.intro-body {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; margin-top: 48px; align-items: start;
+}
+.intro-text { font-size: 16px; color: #555; line-height: 1.8; }
+.intro-text p + p { margin-top: 16px; }
+.intro-text strong { color: #111; }
+.intro-cta {
+  margin-top: 28px; display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Oxanium', sans-serif; font-size: 13px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #111; text-decoration: none;
+  border-bottom: 2px solid #111; padding-bottom: 4px; transition: gap 0.2s;
+}
+.intro-cta:hover { gap: 16px; }
+
+.intro-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.stat-card {
+  background: #f7f7f7; border: 1px solid #e5e5e5; border-left: 4px solid #111;
+  padding: 20px; transition: transform 0.2s, box-shadow 0.2s;
+}
+.stat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+.stat-num {
+  font-family: 'Oxanium', sans-serif; font-size: 36px; font-weight: 800;
+  color: #111; line-height: 1; margin-bottom: 4px;
+}
+.stat-num .unit { font-size: 20px; color: #aaa; }
+.stat-label { font-size: 12px; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+.stat-card.featured { grid-column: 1 / -1; background: #111; }
+.stat-card.featured .stat-num { color: #fff; }
+.stat-card.featured .stat-num .unit { color: rgba(255,255,255,0.35); }
+.stat-card.featured .stat-label { color: rgba(255,255,255,0.4); }
+.stat-card.featured .stat-desc { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 6px; }
+
+.intro-features {
+  margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: #ddd; border: 1px solid #ddd;
+}
+.feature-item { background: #fff; padding: 28px 24px; transition: background 0.2s; }
+.feature-item:hover { background: #f5f5f5; }
+.feature-icon {
+  width: 40px; height: 40px; background: #111;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; margin-bottom: 14px;
+}
+.feature-title { font-family: 'Oxanium', sans-serif; font-weight: 700; font-size: 15px; color: #111; margin-bottom: 8px; }
+.feature-desc { font-size: 13px; color: #666; line-height: 1.6; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-links, .btn-join.desktop { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 90px 20px 50px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .hero-right { order: -1; }
+  .char-frame { max-width: 260px; }
+  .hero-title .line1, .hero-title .line2 { font-size: clamp(2.4rem, 12vw, 3.5rem); }
+  .glow-ring, .geo { display: none; }
+  .intro { padding: 56px 20px; }
+  .intro-body { grid-template-columns: 1fr; gap: 36px; }
+  .intro-features { grid-template-columns: 1fr; }
+  .intro-stats { grid-template-columns: 1fr 1fr; }
+  .stat-card.featured { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .hero-buttons { flex-direction: column; }
+  .btn-outline, .btn-primary { justify-content: center; }
+  .intro-stats { grid-template-columns: 1fr; }
+  .stat-card.featured { grid-column: unset; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="logo-icon">🍜</div>
+    <div>
+      <div>Intel</div>
+      <div class="sub">Kantin</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+  </ul>
+  <a href="#" class="btn-join desktop">Join Us</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#" class="btn-join">Join Us</a>
+</div>
+
+<section class="hero" id="home">
+  <div class="stars"></div>
+  <div class="glow-ring"></div>
+  <div class="geo geo-triangle"></div>
+  <div class="geo geo-triangle2"></div>
+  <div class="geo geo-chevron"></div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">Welcome to Kantin</div>
+      <h1 class="hero-title">
+        <span class="line1">SMKN 1</span>
+        <span class="line2">SURABAYA</span>
+      </h1>
+      <p class="hero-desc">
+        Komunitas pencari <span>Jajanan Sekolah</span> di kantin SMKN 1 SURABAYA
+      </p>
+      <div class="hero-buttons">
+        <a href="#about" class="btn-outline">👥 Tentang Kami ›</a>
+        <a href="#gallery" class="btn-primary">🍔 Gas Beli!!!</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="char-frame">
+        <div class="char-svg">
+          <img id="heroImg" src="cara-membuat-mie-ayam-4-removebg-preview.png" alt="" style="width: 150%; height: 150%;"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intro" id="about">
+  <div class="intro-inner">
+    <div class="intro-tag">✦ Tentang Kami</div>
+    <h2 class="intro-heading">
+      Radar Intel Kantin<br>
+      <span class="hl">SMKN 1 SURABAYA</span>
+    </h2>
+
+    <div class="intro-body">
+      <div>
+        <div class="intro-text">
+          <p><strong>Intel Kantin</strong> adalah markas resmi para pemburu asupan di kantin SMKN 1 Surabaya Pencari <strong> JAJANAN ENAK  </strong> yang berbasis aplikasi tanpa Internet</p>
+          <p style="margin-top:16px">Gak cuma sekadar jualan, kita di sini buat berbagi asupan tenaga, info stok jajanan paling update, sampai jadi temen mabar (makan bareng) yang suportif biar gak sendirian di pojokan kantin.</p>
+          <p style="margin-top:16px">Kalian Baru di SMKN 1 Surabaya? Tenang aja Kami bisa bantu kamu pilih jajan di kantin sebelum datengin kantin nya!!</p>
+        </div>
+        <a href="#" class="intro-cta">Gabung Sekarang →</a>
+      </div>
+
+      <div class="intro-stats">
+        <div class="stat-card featured">
+          <div class="stat-num">500<span class="unit">+</span></div>
+          <div class="stat-label">Total Pengguna Aktif</div>
+          <div class="stat-desc">dan terus bertumbuh setiap harinya</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">1 <span class="unit">Tahun</span></div>
+          <div class="stat-label">Berdiri Sejak</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">13<span class="unit">+</span></div>
+          <div class="stat-label">Stand Tersedia!!!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="intro-features">
+      <div class="feature-item">
+        <div class="feature-icon">🎵</div>
+        <div class="feature-title">Events Rutin</div>
+        <div class="feature-desc">Score attack, Virtual Live bareng, dan event kolaborasi komunitas setiap bulan.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🤝</div>
+        <div class="feature-title">Komunitas Solid</div>
+        <div class="feature-desc">Sesama pemain yang saling support dan berbagi tips untuk berkembang bersama.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🏆</div>
+        <div class="feature-title">Kompetisi Seru</div>
+        <div class="feature-desc">Turnamen dan leaderboard internal khusus member Bebuhan Proseka Kalsel.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }));
+</script>
+</body>
+</html>
